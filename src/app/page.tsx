@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Navbar />
-      <main className="flex-1 w-full bg-[#030014]">
+      <main className="flex-1 w-full bg-[var(--background)] transition-colors duration-300">
         <Hero />
         <About />
         <Experience />

@@ -14,13 +14,13 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Tasse Wembe Jerry Arole | Ingénieur Logiciel & Cloud",
-    template: "%s | Jerry Arole"
+    default: "Tasse Arole | Ingénieur Logiciel & Cloud",
+    template: "%s | Tasse Arole"
   },
-  description: "Portfolio professionnel de Tasse Wembe Jerry Arole, Élève Ingénieur en Génie Informatique à l'ENSPY. Spécialisé en développement Full-Stack, architectures cloud-natives et intégration d'intelligence artificielle.",
+  description: "Portfolio professionnel de Tasse Arole, Élève Ingénieur en Génie Informatique à l'ENSPY. Spécialisé en développement Full-Stack, architectures cloud-natives et intégration d'intelligence artificielle.",
   keywords: [
+    "Tasse Arole",
     "Tasse Wembe Jerry Arole",
-    "Jerry Arole",
     "Génie Informatique",
     "ENSPY",
     "Software Engineer",
@@ -36,27 +36,27 @@ export const metadata: Metadata = {
     "Cameroun",
     "Yaoundé"
   ],
-  authors: [{ name: "Tasse Wembe Jerry Arole", url: "https://github.com/jerryarole" }],
-  creator: "Tasse Wembe Jerry Arole",
+  authors: [{ name: "Tasse Arole", url: "https://github.com/jerryarole" }],
+  creator: "Tasse Arole",
   openGraph: {
     type: "website",
     locale: "fr_FR",
     url: "https://jerryarole.dev",
-    title: "Tasse Wembe Jerry Arole | Ingénieur Logiciel & Cloud",
+    title: "Tasse Arole | Ingénieur Logiciel & Cloud",
     description: "Élève Ingénieur en Génie Informatique à l'ENSPY - Portfolio personnel. Découvrez mes projets, compétences et expériences.",
-    siteName: "Jerry Arole Portfolio",
+    siteName: "Tasse Arole Portfolio",
     images: [
       {
         url: "/profile_avatar.png",
         width: 512,
         height: 512,
-        alt: "Tasse Wembe Jerry Arole Avatar"
+        alt: "Tassé Harold Avatar"
       }
     ]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Tasse Wembe Jerry Arole | Ingénieur Logiciel",
+    title: "Tasse Arole | Ingénieur Logiciel",
     description: "Élève Ingénieur en Génie Informatique à l'ENSPY. Spécialisé en Full-Stack et IA.",
     images: ["/profile_avatar.png"]
   },
@@ -73,9 +73,32 @@ export default function RootLayout({
   return (
     <html
       lang="fr"
-      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth`}
+      className={`${geistSans.variable} ${geistMono.variable} scroll-smooth dark`}
+      suppressHydrationWarning
     >
-      <body className="bg-background text-foreground antialiased min-h-screen flex flex-col selection:bg-accent-purple/30 selection:text-white">
+      {/*
+        Script injecté avant le paint pour éviter le flash de thème.
+        Si l'utilisateur a choisi "light", on retire la classe "dark".
+      */}
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var t = localStorage.getItem('theme');
+                  if (t === 'light') {
+                    document.documentElement.classList.remove('dark');
+                  } else {
+                    document.documentElement.classList.add('dark');
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="antialiased min-h-screen flex flex-col selection:bg-accent-purple/30 selection:text-white">
         {children}
       </body>
     </html>

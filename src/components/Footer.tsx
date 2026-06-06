@@ -12,23 +12,18 @@ export default function Footer() {
   };
 
   return (
-    <footer className="w-full bg-slate-950/80 border-t border-white/5 py-12 px-4 relative mt-auto">
+    <footer className="w-full bg-slate-950/80 border-t border-white/5 py-10 px-4 relative mt-auto">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         
         {/* Logo/Copyright */}
         <div className="text-center md:text-left space-y-2">
           <p className="font-mono text-sm tracking-wider font-bold text-white">
-            JERRY<span className="text-accent-purple">.AROLE</span>
+            TASSE<span className="text-accent-purple">.AROLE</span>
           </p>
           <p className="text-xs text-slate-500 font-medium">
-            © {new Date().getFullYear()} Tasse Wembe Jerry Arole. Tous droits réservés.
+            © {new Date().getFullYear()} Tasse Arole. Tous droits réservés.
           </p>
         </div>
-
-        {/* Clean details tagline */}
-        <p className="text-xs text-slate-600 font-mono text-center max-w-xs md:max-w-none">
-          Conçu avec rigueur. Développé avec passion. Propulsé par Next.js & Tailwind.
-        </p>
 
         {/* Scroll back to top */}
         <a

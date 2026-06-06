@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const navItems = [
   { label: "Accueil", href: "#accueil" },
@@ -112,7 +113,7 @@ export default function Navbar() {
           >
             <span className="h-2 w-2 rounded-full bg-accent-cyan group-hover:animate-ping" />
             <span className="text-lg tracking-wider font-mono">
-              JERRY<span className="text-accent-purple">.AROLE</span>
+              TASSE<span className="text-accent-purple">.AROLE</span>
             </span>
           </a>
 
@@ -142,8 +143,9 @@ export default function Navbar() {
             })}
           </nav>
 
-          {/* CTA Right Button */}
-          <div className="hidden md:flex items-center">
+          {/* CTA Right Button + Theme Toggle */}
+          <div className="hidden md:flex items-center gap-2">
+            <ThemeToggle />
             <a
               href="#contact"
               onClick={(e) => handleClick(e, "#contact")}
@@ -153,14 +155,17 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex items-center justify-center p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/5 transition"
-            aria-label="Toggle Navigation"
-          >
-            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Mobile: Theme Toggle + Menu Button */}
+          <div className="md:hidden flex items-center gap-2">
+            <ThemeToggle />
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="flex items-center justify-center p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/5 transition"
+              aria-label="Toggle Navigation"
+            >
+              {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </header>
 

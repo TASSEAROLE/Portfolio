@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* ── Enable class-based dark mode for Tailwind v4 ── */
+@variant dark (&:where(.dark, .dark *));
+
 @theme {
   --color-background: #030014;
   --color-foreground: #f8fafc;
@@ -44,76 +47,135 @@
   }
 }
 
+/* ── CSS custom properties ── */
 :root {
-  --background: #030014;
-  --foreground: #f8fafc;
   scroll-behavior: smooth;
 }
 
 /* Base resets and defaults */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
   font-family: var(--font-sans), system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-/* Custom Webkit scrollbar for premium dark appearance */
-::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+/* ─── Light mode base (default when no .dark class) ─── */
+html:not(.dark) body {
+  background-color: #f5f3ef;
+  color: #1a1a2e;
 }
 
-::-webkit-scrollbar-track {
-  background: #030014;
+/* ─── Dark mode base ─── */
+html.dark body {
+  background-color: #030014;
+  color: #f8fafc;
 }
 
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 4px;
-}
+/* Custom Webkit scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+html.dark ::-webkit-scrollbar-track { background: #030014; }
+html:not(.dark) ::-webkit-scrollbar-track { background: #e8e4dc; }
+html.dark ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+html:not(.dark) ::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 4px; }
+html.dark ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
+html:not(.dark) ::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.28); }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* Custom background grid and ambient lighting effects */
+/* ─── Background grid ─── */
 .bg-grid-pattern {
   background-size: 40px 40px;
-  background-image: 
-    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+}
+html.dark .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+}
+html:not(.dark) .bg-grid-pattern {
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px);
 }
 
+/* ─── Gradient texts ─── */
 .text-gradient-purple-cyan {
   background: linear-gradient(135deg, #a78bfa 0%, #3b82f6 50%, #06b6d4 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
 .text-gradient-gold-orange {
   background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.02);
+/* ─── Glass card ─── */
+html.dark .glass-card {
+  background: rgba(255,255,255,0.015);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255,255,255,0.05);
+}
+html:not(.dark) .glass-card {
+  background: rgba(255,255,255,0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0,0,0,0.07);
 }
 
-.glass-card-hover:hover {
-  border-color: rgba(255, 255, 255, 0.12);
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+html.dark .glass-card-hover:hover {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.1);
+}
+html:not(.dark) .glass-card-hover:hover {
+  border-color: rgba(0,0,0,0.12);
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08), inset 0 1px 1px rgba(255,255,255,0.9);
 }
 
-.glow-purple {
-  filter: drop-shadow(0 0 15px rgba(139, 92, 246, 0.25));
-}
+/* ─── Glow effects ─── */
+.glow-purple { filter: drop-shadow(0 0 15px rgba(139,92,246,0.25)); }
+.glow-cyan   { filter: drop-shadow(0 0 15px rgba(6,182,212,0.25)); }
 
-.glow-cyan {
-  filter: drop-shadow(0 0 15px rgba(6, 182, 212, 0.25));
-}
+/* ════════════════════════════════════════════════════════
+   LIGHT MODE OVERRIDES — target Tailwind utility classes
+   ════════════════════════════════════════════════════════ */
+
+/* Text colors */
+html:not(.dark) .text-white    { color: #1a1a2e !important; }
+html:not(.dark) .text-slate-300 { color: #374151 !important; }
+html:not(.dark) .text-slate-400 { color: #4b5563 !important; }
+html:not(.dark) .text-slate-500 { color: #6b7280 !important; }
+html:not(.dark) .text-slate-600 { color: #9ca3af !important; }
+
+/* Backgrounds */
+html:not(.dark) .bg-slate-950\/80    { background-color: rgba(245,243,239,0.92) !important; }
+html:not(.dark) .bg-slate-900        { background-color: #ede9e3 !important; }
+html:not(.dark) .bg-white\/\[0\.01\] { background-color: rgba(255,255,255,0.6) !important; }
+html:not(.dark) .bg-white\/\[0\.02\] { background-color: rgba(255,255,255,0.7) !important; }
+html:not(.dark) .bg-white\/\[0\.03\] { background-color: rgba(255,255,255,0.75) !important; }
+html:not(.dark) .bg-white\/5         { background-color: rgba(0,0,0,0.04) !important; }
+
+/* Borders */
+html:not(.dark) .border-white\/5  { border-color: rgba(0,0,0,0.06) !important; }
+html:not(.dark) .border-white\/10 { border-color: rgba(0,0,0,0.09) !important; }
+
+/* Section separators */
+html:not(.dark) .border-t.border-white\/5 { border-color: rgba(0,0,0,0.06) !important; }
+
+/* Navbar specific */
+html:not(.dark) header { background-color: rgba(245,243,239,0.85) !important; }
+
+/* Footer specific */
+html:not(.dark) footer { background-color: rgba(235,231,225,0.95) !important; border-color: rgba(0,0,0,0.06) !important; }
+
+/* Mobile menu drawer */
+html:not(.dark) .border-white\/10.rounded-3xl { border-color: rgba(0,0,0,0.08) !important; }
+
+/* Gradient orbs — hide in light mode so they don't clash */
+html:not(.dark) .from-accent-purple\/15,
+html:not(.dark) .to-accent-blue\/15,
+html:not(.dark) .bg-accent-cyan\/10 { opacity: 0.06 !important; }
+
+/* Stat cards in hero */
+html:not(.dark) .rounded-2xl.border { border-color: rgba(0,0,0,0.06) !important; }
+html:not(.dark) .rounded-2xl.border .text-white { color: #1a1a2e !important; }

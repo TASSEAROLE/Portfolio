@@ -7,7 +7,7 @@ import { FolderGit2, Calendar, Layout, Award, Server, ArrowRight, ShieldCheck, X
 interface Project {
   id: string;
   title: string;
-  category: "fullstack" | "ml" | "mobile" | "geospatial";
+  category: "fullstack" | "ml" | "mobile" | "geospatial" | "ecommerce";
   categoryLabel: string;
   shortDesc: string;
   longDesc: string;
@@ -107,11 +107,33 @@ const projects: Project[] = [
     results: "Résolution des requêtes spatiales complexes en moins de 100ms grâce à l'optimisation des index GIST sur PostGIS, offrant un rendu fluide de 60 FPS sur le frontend.",
     visualBg: "from-teal-950/80 to-slate-900/90",
     githubUrl: "https://github.com/jerryarole/route-planner",
+  },
+  {
+    id: "nilrem",
+    title: "NILREM",
+    category: "ecommerce",
+    categoryLabel: "Boutique E-commerce",
+    shortDesc: "Plateforme e-commerce complète pour la vente de parfums et produits cosmétiques, avec système de gestion intégré.",
+    longDesc: "Conception et développement de nilrem.shop, une boutique en ligne spécialisée dans la revente de parfums et produits cosmétiques. La plateforme intègre un catalogue produit dynamique, un panier d'achat, un système de commandes et un back-office de gestion de la boutique NILREM.",
+    challenges: "Garantir une expérience d'achat fluide et rapide sur mobile, synchroniser en temps réel le stock et les commandes via Supabase, et optimiser les performances perçues avec un chargement progressif des images produits.",
+    architecture: "Frontend entièrement en React 18 + TypeScript avec Vite pour des builds ultrarapides. Base de données PostgreSQL hébergée sur Supabase avec accès temps réel. Déploiement sur Vercel avec Vercel Analytics pour le suivi de performance et de conversion.",
+    features: [
+      "Catalogue produit avec filtres et recherche",
+      "Panier d'achat et gestion des commandes",
+      "Back-office de gestion du stock et des produits",
+      "Authentification client et historique des achats",
+      "Intégration Vercel Analytics pour le suivi des conversions",
+      "Design responsive optimisé mobile-first"
+    ],
+    technologies: ["React 18", "TypeScript", "Vite", "Tailwind CSS", "Supabase", "PostgreSQL", "Vercel Analytics"],
+    results: "Boutique en ligne opérationnelle et accessible sur nilrem.shop, offrant une expérience d'achat moderne et performante pour les clients de la boutique NILREM.",
+    visualBg: "from-pink-900/60 to-rose-950/80",
+    demoUrl: "https://nilrem.shop",
   }
 ];
 
 export default function Projects() {
-  const [filter, setFilter] = useState<"all" | "fullstack" | "ml" | "mobile" | "geospatial">("all");
+  const [filter, setFilter] = useState<"all" | "fullstack" | "ml" | "mobile" | "geospatial" | "ecommerce">("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   const filteredProjects = projects.filter(
@@ -141,6 +163,7 @@ export default function Projects() {
             [
               { id: "all", label: "Tous" },
               { id: "fullstack", label: "Full-Stack" },
+              { id: "ecommerce", label: "E-commerce" },
               { id: "ml", label: "Tarification & IA" },
               { id: "mobile", label: "IoT / Flutter" },
               { id: "geospatial", label: "Géospatial" },
